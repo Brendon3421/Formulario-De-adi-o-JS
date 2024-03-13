@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulário com Bootstrap</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="mt-5 mb-4">Formulário JavaScript sem banco</h1>
+    <form id="myForm">
+      <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" class="form-control" id="nome" placeholder="Coloque seu nome" required>
+      </div>
+      <div class="form-group">
+        <label for="telefone">Telefone:</label>
+        <input type="text" class="form-control" id="telefone" placeholder="Ex: (XX)XXXX-XXXX" maxlength="15" required>
+      </div>
+      <div class="form-group">
+        <label for="nascimento">Data de Nascimento:</label>
+        <input type="date" class="form-control" id="nascimento" required>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label for="cep" class="form-label">Cep</label>
+            <input name="cep" type="text" id="cep" value="" size="10" maxlength="9" data-mask="00000-000"
+              class="form-control" onblur="pesquisacep(this.value);" />
+
+            <div class="text-danger">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="form-label">rua</label>
+            <input type="text" name="rua" id="rua" class="form-control">
+            <div class="text-danger">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label class="form-label">bairro</label>
+            <input type="text" name="bairro" id="bairro" class="form-control">
+            <div class="text-danger">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">Cidade</label>
+              <input type="text" name="cidade" id="cidade" class="form-control" readonly>
+              <div class="text-danger">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label class="form-label">estado</label>
+              <input type="text" name="estado" id="uf" class="form-control" readonly>
+              <div class="text-danger">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label class="form-label">IBGE</label>
+            <input type="text" name="ibge" id="ibge" class="form-control" readonly>
+            <div class="text-danger">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="mb-3">
+            <label class="form-label">DDD</label>
+            <input type="text" name="ddd" id="ddd" class="form-control" readonly>
+            <div class="text-danger">
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-5">
+            <div class="mb-5">
+              <label class="form-label">GIA</label>
+              <input name="gia" id="gia" type="text" class="form-control" readonly>
+              <div class="text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="mb-5">
+              <label class="form-label"></label>
+              <button type="submit" class="btn btn-primary" style="position: relative; top: 2rem;">Enviar</button>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+
+    </form>
+
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Número</th>
+          <th>Nascimento</th>
+          <th>cep</th>
+          <th>rua</th>
+          <th>bairro</th>
+          <th>cidade</th>
+          <th>uf</th>
+          <th>ibge</th>
+          <th>ddd</th>
+          <th>gia</th>
+          <th>Ações</th>
+
+        </tr>
+      </thead>
+      <tbody id="tabela">
+
+
+        <tr>
+          <!-- Linhas da tabela serão adicionadas aqui -->
+        </tr>
+
+        <tr>
+          <td>João</td>
+          <td>25/02/2004</td>
+          <td>123456789</td>
+          <td>12345-678</td>
+          <td>Rua A</td>
+          <td>Bairro B</td>
+          <td>Cidade C</td>
+          <td>UF</td>
+          <td>1234567</td>
+          <td>11</td>
+          <td>1234</td>
+          <td>
+            <button type="button" class="btn btn-primary" onclick="editarLinha(this)">Editar</button>
+            <button type="button" class="btn btn-danger" onclick="excluirLinha(this)">Excluir</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Cleber irmão do João</td>
+          <td>25/02/2005</td>
+          <td>123456789</td>
+          <td>12345-678</td>
+          <td>Rua A</td>
+          <td>Bairro B</td>
+          <td>Cidade C</td>
+          <td>UF</td>
+          <td>1234567</td>
+          <td>11</td>
+          <td>1234</td>
+          <td>
+            <button type="button" class="btn btn-primary" onclick="editarLinha(this)">Editar</button>
+            <button type="button" class="btn btn-danger" onclick="excluirLinha(this)">Excluir</button>
+          </td>
+        </tr>
+
+        <tr>
+          <td>Maria</td>
+          <td>25/02/2007</td>
+          <td>123456789</td>
+          <td>12345-678</td>
+          <td>Rua A</td>
+          <td>Bairro d</td>
+          <td>Cidade p</td>
+          <td>sc</td>
+          <td>DADAS</td>
+          <td>11</td>
+          <td>1234</td>
+          <td>
+            <button type="button" class="btn btn-primary" onclick="editarLinha(this)">Editar</button>
+            <button type="button" class="btn btn-danger" onclick="excluirLinha(this)">Excluir</button>
+          </td>
+        </tr>
+
+
+      </tbody>
+    </table>
+  </div>
+
+
+  <div id="alertContainer" class="alert-container"></div>
+
+  <script src="script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+</body>
+
+</html>
